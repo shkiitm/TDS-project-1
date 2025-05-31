@@ -1,0 +1,24 @@
+description: Evaluate Virtual TA for TDS course
+providers:
+  - id: virtual-ta-api
+    config:
+      url: https://app.example.com/api/
+      method: POST
+      headers:
+        Content-Type: application/json
+      body: '{"question": "{{question}}"}'
+tests:
+  - vars:
+      question: Should I use gpt-4o-mini which AI proxy supports, or gpt3.5 turbo?
+    assert:
+      - type: llm-rubric
+        value: The response should recommend using gpt-3.5-turbo-0125 as specified in course requirements
+      - type: llm-rubric
+        value: The response should provide relevant links to Discourse posts
+  - vars:
+      question: How do I submit my GA5 assignment?
+    assert:
+      - type: llm-rubric
+        value: The response should correctly explain the submission process
+      - type: llm-rubric
+        value: The response should reference official course guidelines
